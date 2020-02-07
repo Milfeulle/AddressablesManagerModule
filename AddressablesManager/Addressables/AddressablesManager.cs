@@ -149,6 +149,10 @@ namespace AddressablesManagement
             return anyObj;
         }
 
+        public async Task<bool> AddressableExists(string key)
+        {
+            return await Addressables.LoadResourceLocationsAsync(key) != null;
+        }
         /// <summary>
         /// Preloads all dependencies of an object, given its path.
         /// </summary>
@@ -164,9 +168,9 @@ namespace AddressablesManagement
         /// <typeparam name="T">Type of the objects to load.</typeparam>
         /// <param name="label">Label in the Addressables of the objects to load.</param>
         /// <returns>Returns a list with elements of type T.</returns>
-        public async Task<List<T>> LoadAssetsByLabel<T>(string label) where T : class
+        public async Task<List<T>> LoadAssetsByLabel<T>(string label, int expectedQuantity = 1) where T : class
         {
-            IList<T> objects = new List<T>(100);
+            IList<T> objects = new List<T>(expectedQuantity);
             objects = await Addressables.LoadAssetsAsync<T>(label, null);
             return (List<T>)objects;            
         }
