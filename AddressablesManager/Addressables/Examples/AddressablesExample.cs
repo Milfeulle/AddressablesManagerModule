@@ -13,20 +13,36 @@ namespace AddressablesManagement
         public GameObject loneGameObject;
         public GameObject[] testObjects = new GameObject[20];
         public List<Material> materials;
+        public List<string> listTest;
         Sprite sprite;
         Scene sceneToLoad;
         private Vector3 startingPos;
 
-        void Start()
+        private GameObject loadGameobject = null;
+
+        //private ObjectLoader objLoader = new ObjectLoader();
+
+        IEnumerator Start()
         {
-            materials = new List<Material>(3);
+            //materials = new List<Material>(3);
 
-            startingPos = transform.position;
+            //startingPos = transform.position;
 
-            //LoadScene("SceneTest");
-            //InstantiateSingleObject("TestObject");
-            TestInstantiateObjects();
-            //TestLoadByLabel();
+            ////LoadScene("SceneTest");
+            ////InstantiateSingleObject("TestObject");
+            ////TestInstantiateObjects();
+            ////TestLoadByLabel();
+            ////LoadFromList(listTest);
+
+            ObjectLoader objLoaderLocal = new ObjectLoader();
+            yield return StartCoroutine(AddressablesManager.Instance.TryInstantiateGameobject("TestObject", Vector3.zero, Quaternion.identity, objLoaderLocal));
+            loadGameobject = objLoaderLocal.LoadedGameObject;
+            Debug.Log(loadGameobject.name);
+
+
+            //yield return objLoaderLocal.LoadGameObject("TestObject", Vector3.zero, Quaternion.identity, this);
+            //loadGameobject = objLoaderLocal.LoadedGameObject;
+            //Debug.Log(loadGameobject.name);
         }
 
         async void TestLoadByLabel()
@@ -69,6 +85,16 @@ namespace AddressablesManagement
         async void UnloadScene(SceneInstance scene)
         {
             await AddressablesManager.Instance.UnloadScene(scene);
+        }
+
+        async void LoadFromList(List<string> testList)
+        {
+            List<GameObject> GOs = await AddressablesManager.Instance.LoadFromList<GameObject>(testList);
+
+            foreach (GameObject go in GOs)
+            {
+                Instantiate(go);
+            }
         }
     }
 }
