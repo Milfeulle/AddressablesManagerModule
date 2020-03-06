@@ -6,22 +6,22 @@ using UnityEngine.AddressableAssets;
 
 public class ObjectLoader
 {
-    public GameObject _loadedGameobject;
+    public GameObject loadedGameobject;
 
-    public GameObject LoadedGameObject
-    {
-        get
-        {
-            GameObject temp = _loadedGameobject;
-            _loadedGameobject = null;
+    //public GameObject LoadedGameObject
+    //{
+    //    get
+    //    {
+    //        GameObject temp = _loadedGameobject;
+    //        _loadedGameobject = null;
 
-            return temp;
-        }
-    }
+    //        return temp;
+    //    }
+    //}
 
     public ObjectLoader()
     {
-        _loadedGameobject = null;
+        loadedGameobject = null;
     }
 
     public IEnumerator LoadGameObject(string path, Vector3 pos, Quaternion rot, MonoBehaviour mono)
@@ -34,7 +34,7 @@ public class ObjectLoader
         var operation = Addressables.InstantiateAsync(path, pos, rot);
         operation.Completed += (op) =>
         {
-            _loadedGameobject = op.Result;
+            loadedGameobject = op.Result;
         };
         yield return operation;
     }

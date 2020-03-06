@@ -22,6 +22,8 @@ namespace AddressablesManagement
 
         //private ObjectLoader objLoader = new ObjectLoader();
 
+        [SerializeField] private List<GameObject> testObjs = new List<GameObject>();
+
         IEnumerator Start()
         {
             //materials = new List<Material>(3);
@@ -33,12 +35,10 @@ namespace AddressablesManagement
             ////TestInstantiateObjects();
             ////TestLoadByLabel();
             ////LoadFromList(listTest);
-
-            ObjectLoader objLoaderLocal = new ObjectLoader();
-            yield return StartCoroutine(AddressablesManager.Instance.TryInstantiateGameobject("TestObject", Vector3.zero, Quaternion.identity, objLoaderLocal));
-            loadGameobject = objLoaderLocal.LoadedGameObject;
-            Debug.Log(loadGameobject.name);
-
+            ///
+            ObjectLoader objLoaderPooled = AddressablesManager.Instance.LoaderObjectsPool.Get();
+            yield return StartCoroutine(AddressablesManager.Instance.TryInstantiateGameobject("TestObject", Vector3.zero, Quaternion.identity, objLoaderPooled));
+            loadGameobject = objLoaderPooled.loadedGameobject;
 
             //yield return objLoaderLocal.LoadGameObject("TestObject", Vector3.zero, Quaternion.identity, this);
             //loadGameobject = objLoaderLocal.LoadedGameObject;

@@ -23,6 +23,8 @@ namespace AddressablesManagement
         private GameObject _loadedGameObject;
         private Scene _currentlyLoadingScene;
 
+        private ObjectLoaderPool _objectLoadersPool = new ObjectLoaderPool();
+
         #region PROPERTIES
         /// <summary>
         /// Reports whether there's an object currently loading or not.
@@ -55,6 +57,17 @@ namespace AddressablesManagement
             }
         }
 
+        public ObjectLoaderPool LoaderObjectsPool
+        {
+            get
+            {
+                if (!_objectLoadersPool.initialized)
+                    _objectLoadersPool.Initialize(10);
+
+                return _objectLoadersPool;
+            }
+        }
+
         /// <summary>
         /// Instance object of this class
         /// </summary>
@@ -83,6 +96,9 @@ namespace AddressablesManagement
             {
                 Destroy(this);
             }
+
+            if (!_objectLoadersPool.initialized)
+                _objectLoadersPool.Initialize(10);
         }     
 
         #region PUBLIC METHODS
@@ -250,7 +266,7 @@ namespace AddressablesManagement
             var operation = Addressables.InstantiateAsync(path, position, rotation);
             operation.Completed += (op) =>
             {
-                objLoader._loadedGameobject = op.Result;
+                objLoader.loadedGameobject = op.Result;
             };
             yield return operation;
         }
