@@ -20,7 +20,7 @@ namespace AddressablesManagement
 
         private GameObject loadGameobject = null;
 
-        //private ObjectLoader objLoader = new ObjectLoader();
+        private ObjectLoader objLoader = new ObjectLoader();
 
         [SerializeField] private List<GameObject> testObjs = new List<GameObject>();
 
@@ -36,13 +36,13 @@ namespace AddressablesManagement
             ////TestLoadByLabel();
             ////LoadFromList(listTest);
             ///
-            ObjectLoader objLoaderPooled = AddressablesManager.Instance.LoaderObjectsPool.Get();
-            yield return StartCoroutine(AddressablesManager.Instance.TryInstantiateGameobject("TestObject", Vector3.zero, Quaternion.identity, objLoaderPooled));
-            loadGameobject = objLoaderPooled.loadedGameobject;
+            //ObjectLoader objLoaderPooled = AddressablesManager.Instance.LoaderObjectsPool.Get();
+            //yield return StartCoroutine(AddressablesManager.Instance.TryInstantiateGameobject("TestObject", Vector3.zero, Quaternion.identity, objLoaderPooled));
+            //loadGameobject = objLoaderPooled.loadedGameobject;
 
-            //yield return objLoaderLocal.LoadGameObject("TestObject", Vector3.zero, Quaternion.identity, this);
-            //loadGameobject = objLoaderLocal.LoadedGameObject;
-            //Debug.Log(loadGameobject.name);
+            yield return objLoader.LoadGameobject("TestObject", Vector3.zero, Quaternion.identity);
+            loadGameobject = objLoader.loadedGameobject;
+            Debug.Log(loadGameobject.name);
         }
 
         async void TestLoadByLabel()
