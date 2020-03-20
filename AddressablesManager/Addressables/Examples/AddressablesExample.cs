@@ -40,7 +40,7 @@ namespace AddressablesManagement
             //yield return StartCoroutine(AddressablesManager.Instance.TryInstantiateGameobject("TestObject", Vector3.zero, Quaternion.identity, objLoaderPooled));
             //loadGameobject = objLoaderPooled.loadedGameobject;
 
-            yield return objLoader.LoadGameobject("TestObject", Vector3.zero, Quaternion.identity);
+            yield return objLoader.LoadGameObject("TestObject", Vector3.zero, Quaternion.identity);
             loadGameobject = objLoader.loadedGameobject;
             Debug.Log(loadGameobject.name);
         }

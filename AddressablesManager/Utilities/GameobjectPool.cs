@@ -138,7 +138,7 @@ namespace AddressablesManagement
         }
     }
 
-    public class GameobjectPool
+    public class GameObjectPool
     {
         protected GameObject[] pool;
         protected GameObject source; //the reference the pool gets filled with
@@ -253,7 +253,7 @@ namespace AddressablesManagement
 
     }
 
-    public class TimedPool : GameobjectPool
+    public class TimedPool : GameObjectPool
     {
         private MonoBehaviour asyncSource;
         private float delayBeforeReturnToPool;

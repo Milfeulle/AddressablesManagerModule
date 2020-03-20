@@ -14,12 +14,12 @@ public class ObjectLoader
     }
 
     #region Instantiate Operations
-    public IEnumerator InstantiateGameobject(string path, Vector3 pos, Quaternion rot, MonoBehaviour mono)
+    public IEnumerator InstantiateGameObject(string path, Vector3 pos, Quaternion rot, MonoBehaviour mono)
     {
-        yield return mono.StartCoroutine(InstantiateGameobject(path, pos, rot));
+        yield return mono.StartCoroutine(InstantiateGameObject(path, pos, rot));
     }
 
-    public IEnumerator InstantiateGameobject(string path, Vector3 pos, Quaternion rot)
+    public IEnumerator InstantiateGameObject(string path, Vector3 pos, Quaternion rot)
     {
         var operation = Addressables.InstantiateAsync(path, pos, rot);
         operation.Completed += (op) =>
@@ -31,12 +31,12 @@ public class ObjectLoader
     #endregion
 
     #region Load Operations
-    public IEnumerator LoadGameobject(string path, Vector3 pos, Quaternion rot, MonoBehaviour mono)
+    public IEnumerator LoadGameObject(string path, Vector3 pos, Quaternion rot, MonoBehaviour mono)
     {
-        yield return mono.StartCoroutine(LoadGameobject(path, pos, rot));
+        yield return mono.StartCoroutine(LoadGameObject(path, pos, rot));
     }
 
-    public IEnumerator LoadGameobject(string path)
+    public IEnumerator LoadGameObject(string path)
     {
         var operation = Addressables.LoadAssetAsync<GameObject>(path);
         operation.Completed += (op) =>
@@ -46,7 +46,7 @@ public class ObjectLoader
         yield return operation;
     }
 
-    public IEnumerator LoadGameobject(string path, Vector3 pos, Quaternion rot)
+    public IEnumerator LoadGameObject(string path, Vector3 pos, Quaternion rot)
     {
         var operation = Addressables.LoadAssetAsync<GameObject>(path);
         operation.Completed += (op) =>
