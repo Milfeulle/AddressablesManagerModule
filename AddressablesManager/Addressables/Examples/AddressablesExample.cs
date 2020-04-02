@@ -41,7 +41,7 @@ namespace AddressablesManagement
             //loadGameobject = objLoaderPooled.loadedGameobject;
 
             yield return objLoader.LoadGameObject("TestObject", Vector3.zero, Quaternion.identity);
-            loadGameobject = objLoader.loadedGameobject;
+            loadGameobject = objLoader.loadedGameObject;
             Debug.Log(loadGameobject.name);
         }
 
