@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AddressablesManagement;
@@ -6,11 +7,11 @@ using UnityEngine.AddressableAssets;
 
 public class ObjectLoader
 {
-    public GameObject loadedGameobject;
+    public GameObject loadedGameObject;
 
     public ObjectLoader()
     {
-        loadedGameobject = null;
+        loadedGameObject = null;
     }
 
     #region Instantiate Operations
@@ -24,7 +25,7 @@ public class ObjectLoader
         var operation = Addressables.InstantiateAsync(path, pos, rot);
         operation.Completed += (op) =>
         {
-            loadedGameobject = op.Result;
+            loadedGameObject = op.Result;
         };
         yield return operation;
     }
@@ -41,7 +42,7 @@ public class ObjectLoader
         var operation = Addressables.LoadAssetAsync<GameObject>(path);
         operation.Completed += (op) =>
         {
-            loadedGameobject = op.Result;
+            loadedGameObject = op.Result;
         };
         yield return operation;
     }
@@ -51,11 +52,31 @@ public class ObjectLoader
         var operation = Addressables.LoadAssetAsync<GameObject>(path);
         operation.Completed += (op) =>
         {
-            loadedGameobject = op.Result;
-            loadedGameobject.transform.position = pos;
-            loadedGameobject.transform.rotation = rot;
+            loadedGameObject = op.Result;
+            loadedGameObject.transform.position = pos;
+            loadedGameObject.transform.rotation = rot;
         };
         yield return operation;
     }
+
+    public IEnumerator LoadAssetRoutineWithCallback<T>(string path, Action<T> onLoaded) where T : class
+    {
+        var operation = Addressables.LoadAssetAsync<T>(path);
+        operation.Completed += (op) =>
+        {
+            onLoaded.Invoke(op.Result);
+        };
+        yield return operation;
+    }
+
+    public void LoadAssetWithCallback<T>(string path, Action<T> onLoaded) where T : class
+    {
+        var operation = Addressables.LoadAssetAsync<T>(path);
+        operation.Completed += (op) =>
+        {
+            onLoaded.Invoke(op.Result);
+        };
+    }
+
     #endregion
 }

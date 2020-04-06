@@ -117,7 +117,7 @@ namespace AddressablesManagement
 
         public override void ReturnToPool(ObjectLoader obj)
         {
-            obj.loadedGameobject = null;
+            obj.loadedGameObject = null;
             //obj.SetActive(false);
         }
 
@@ -125,7 +125,7 @@ namespace AddressablesManagement
         {
             foreach (var obj in pool)
             {
-                if (obj.loadedGameobject != null)
+                if (obj.loadedGameObject != null)
                 {
                     ReturnToPool(obj);
                     return obj;

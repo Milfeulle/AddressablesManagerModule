@@ -266,7 +266,7 @@ namespace AddressablesManagement
             var operation = Addressables.InstantiateAsync(path, position, rotation);
             operation.Completed += (op) =>
             {
-                objLoader.loadedGameobject = op.Result;
+                objLoader.loadedGameObject = op.Result;
             };
             yield return operation;
         }
