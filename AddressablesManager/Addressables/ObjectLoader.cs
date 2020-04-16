@@ -59,7 +59,7 @@ public class ObjectLoader
         yield return operation;
     }
 
-    public IEnumerator LoadAssetRoutineWithCallback<T>(string path, Action<T> onLoaded) where T : class
+    public static IEnumerator LoadAssetRoutineWithCallback<T>(string path, Action<T> onLoaded) where T : class
     {
         var operation = Addressables.LoadAssetAsync<T>(path);
         operation.Completed += (op) =>
@@ -69,13 +69,24 @@ public class ObjectLoader
         yield return operation;
     }
 
-    public void LoadAssetWithCallback<T>(string path, Action<T> onLoaded) where T : class
+    public static void LoadAssetWithCallback<T>(string path, Action<T> onLoaded) where T : class
     {
         var operation = Addressables.LoadAssetAsync<T>(path);
         operation.Completed += (op) =>
         {
             onLoaded.Invoke(op.Result);
         };
+    }
+
+
+    public static IEnumerator InstantiateGameObjectRoutineWithCallback(string path, Action<GameObject> onInstantiated)
+    {
+        var operation = Addressables.InstantiateAsync(path);
+        operation.Completed += (op) =>
+        {
+            onInstantiated.Invoke(op.Result);
+        };
+        yield return operation;
     }
 
     #endregion
