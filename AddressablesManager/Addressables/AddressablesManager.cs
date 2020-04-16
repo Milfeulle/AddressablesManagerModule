@@ -147,7 +147,7 @@ namespace AddressablesManagement
         /// <param name="scene">Scene object to unload.</param>
         public async Task UnloadScene(SceneInstance scene)
         {
-            Addressables.UnloadSceneAsync(scene);
+            await Task.Run(() => Addressables.UnloadSceneAsync(scene));
         }
 
         /// <summary>

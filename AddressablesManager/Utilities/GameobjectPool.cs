@@ -260,7 +260,7 @@ namespace AddressablesManagement
 
         public Action<GameObject> OnObjectReturnedToPool; //Assign to this for custom de-initialization behavior for the pooled object.
 
-        public new async void InitializeFromGameObjectAddressable(string addressableKey, int initialPoolSize, MonoBehaviour asyncSource, float delayBeforeReturnToPool)
+        public async void InitializeFromGameObjectAddressable(string addressableKey, int initialPoolSize, MonoBehaviour asyncSource, float delayBeforeReturnToPool)
         {
             this.asyncSource = asyncSource;
             this.delayBeforeReturnToPool = delayBeforeReturnToPool;
