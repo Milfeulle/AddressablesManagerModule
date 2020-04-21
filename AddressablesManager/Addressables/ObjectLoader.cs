@@ -29,6 +29,15 @@ public class ObjectLoader
         };
         yield return operation;
     }
+
+    public static void InstantiateGameObjectWithCallback(string path, Action<GameObject> callback)
+    {
+        var operation = Addressables.InstantiateAsync(path);
+        operation.Completed += (op) =>
+        {
+            callback.Invoke(op.Result);
+        };
+    }
     #endregion
 
     #region Load Operations
