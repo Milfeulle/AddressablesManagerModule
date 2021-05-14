@@ -157,6 +157,18 @@ namespace AddressablesManagement
             }
         }
 
+        public void InitializeFromGameObjectPrefab(GameObject prefab, int initialPoolSize = 1)
+        {
+            source = prefab;
+
+            pool = new GameObject[initialPoolSize];
+
+            for (int i = 0; i < initialPoolSize; i++)
+            {
+                InitializeObjectIntoPool(i);
+            }
+        }
+
         //This is OnlyUseBeforeInit because it won't initialize existing objects, only configures the pool to initialize objects with this moving forward
         public void UseCustomInitializer_OnlyUseBeforeInit(Action<GameObject> initializer)
         {
@@ -266,6 +278,16 @@ namespace AddressablesManagement
             this.delayBeforeReturnToPool = delayBeforeReturnToPool;
 
             base.InitializeFromGameObjectAddressable(addressableKey, initialPoolSize);
+        }
+
+        public void SetAsyncSource(MonoBehaviour asyncSource)
+        {
+            this.asyncSource = asyncSource;
+        }
+
+        public void SetPoolDelayTime(float delayBeforeReturningToPool)
+        {
+            this.delayBeforeReturnToPool = delayBeforeReturningToPool;
         }
 
         void StartPoolReturnRoutineForObj(GameObject obj)
