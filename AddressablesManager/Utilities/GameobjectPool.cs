@@ -247,11 +247,25 @@ namespace AddressablesManagement
             obj.SetActive(false);
         }
 
+        public void ReturnToPoolDeparent(GameObject obj)
+        {
+            obj.SetActive(false);
+            obj.transform.SetParent(null);
+        }
+
         public void ReturnAllToPool()
         {
             foreach (var obj in pool)
             {
                 ReturnToPool(obj);
+            }
+        }
+
+        public void ReturnAllToPoolDeparent()
+        {
+            foreach (var obj in pool)
+            {
+                ReturnToPoolDeparent(obj);
             }
         }
 
