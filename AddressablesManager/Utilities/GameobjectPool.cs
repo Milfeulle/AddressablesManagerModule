@@ -220,7 +220,7 @@ namespace AddressablesManagement
         {
             foreach (var obj in pool)
             {
-                if (!obj.activeSelf)
+                if (!obj.activeInHierarchy)
                 {
                     return PrepObjectForUse(obj);
                 }
